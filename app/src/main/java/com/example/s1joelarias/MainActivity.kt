@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.s1joelarias.screens.ForgotPassword
 import com.example.s1joelarias.screens.LoginScreen
+import com.example.s1joelarias.screens.Minuta
 import com.example.s1joelarias.screens.RegisterScreen
 import com.example.s1joelarias.ui.theme.S1joelariasTheme
 
@@ -33,7 +34,9 @@ class MainActivity : ComponentActivity() {
                         composable("login") {
                             LoginScreen(
                                 onLoginSuccess = {
-                                    // TODO: Navegar a la minuta la implementemos
+                                    navController.navigate("minuta") {
+                                        popUpTo("login") { inclusive = true }
+                                    }
                                 },
                                 onRegisterClick = {
                                     navController.navigate("register")
@@ -43,6 +46,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         }
+
                         composable("register") {
                             RegisterScreen(
                                 onRegisterSuccess = {
@@ -55,6 +59,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         }
+
                         composable("forgotPassword") {
                             ForgotPassword(
                                 onBackToLogin = {
@@ -63,6 +68,10 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                             )
+                        }
+
+                        composable("minuta") {
+                            Minuta()
                         }
                     }
                 }
