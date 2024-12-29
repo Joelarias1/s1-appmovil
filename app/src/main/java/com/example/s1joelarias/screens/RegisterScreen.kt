@@ -9,13 +9,14 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LoginScreen(
-    onLoginSuccess: () -> Unit,
-    onRegisterClick: () -> Unit
+fun RegisterScreen(
+    onRegisterSuccess: () -> Unit,
+    onLoginClick: () -> Unit
 ) {
+    var nombre by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var rememberMe by remember { mutableStateOf(false) }
+    var confirmPassword by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -25,9 +26,19 @@ fun LoginScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Minuta Nutricional",
+            text = "Registro",
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.padding(bottom = 32.dp)
+        )
+
+        OutlinedTextField(
+            value = nombre,
+            onValueChange = { nombre = it },
+            label = { Text("Nombre Completo") },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+            singleLine = true
         )
 
         OutlinedTextField(
@@ -51,40 +62,31 @@ fun LoginScreen(
             singleLine = true
         )
 
-        Row(
+        OutlinedTextField(
+            value = confirmPassword,
+            onValueChange = { confirmPassword = it },
+            label = { Text("Confirmar Contraseña") },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Checkbox(
-                checked = rememberMe,
-                onCheckedChange = { rememberMe = it }
-            )
-            Text("Recordar sesión")
-        }
+                .padding(bottom = 24.dp),
+            visualTransformation = PasswordVisualTransformation(),
+            singleLine = true
+        )
 
         Button(
-            onClick = onLoginSuccess,
+            onClick = onRegisterSuccess,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp)
         ) {
-            Text("Iniciar Sesión")
+            Text("Registrarse")
         }
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+        TextButton(
+            onClick = onLoginClick,
+            modifier = Modifier.padding(top = 8.dp)
         ) {
-            TextButton(onClick = onRegisterClick) {
-                Text("Registrarse")
-            }
-            TextButton(onClick = { /* TODO: Implementar recuperación */ }) {
-                Text("¿Olvidaste tu contraseña?")
-            }
+            Text("¿Ya tienes cuenta? Inicia sesión")
         }
     }
 }
