@@ -11,7 +11,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun LoginScreen(
     onLoginSuccess: () -> Unit,
-    onRegisterClick: () -> Unit
+    onRegisterClick: () -> Unit,
+    onForgotClick: () -> Unit,
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -82,7 +83,7 @@ fun LoginScreen(
             TextButton(onClick = onRegisterClick) {
                 Text("Registrarse")
             }
-            TextButton(onClick = { /* TODO: Implementar recuperación */ }) {
+            TextButton(onClick = onForgotClick) {
                 Text("¿Olvidaste tu contraseña?")
             }
         }

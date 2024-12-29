@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.s1joelarias.screens.ForgotPassword
 import com.example.s1joelarias.screens.LoginScreen
 import com.example.s1joelarias.screens.RegisterScreen
 import com.example.s1joelarias.ui.theme.S1joelariasTheme
@@ -32,22 +33,35 @@ class MainActivity : ComponentActivity() {
                         composable("login") {
                             LoginScreen(
                                 onLoginSuccess = {
-                                    // Navegar a la pantalla principal cuando esté implementada
+                                    // TODO: Navegar a la minuta la implementemos
                                 },
                                 onRegisterClick = {
                                     navController.navigate("register")
+                                },
+                                onForgotClick = {
+                                    navController.navigate("forgotPassword")
                                 }
                             )
                         }
                         composable("register") {
                             RegisterScreen(
                                 onRegisterSuccess = {
-
+                                    navController.navigateUp() // Vuelve al login
                                 },
                                 onLoginClick = {
-                                    navController.navigate("login")
+                                    navController.navigate("login") {
+                                        popUpTo("login") { inclusive = true }
+                                    }
                                 }
-
+                            )
+                        }
+                        composable("forgotPassword") {
+                            ForgotPassword(
+                                onBackToLogin = {
+                                    navController.navigate("login") {
+                                        popUpTo("login") { inclusive = true }
+                                    }
+                                }
                             )
                         }
                     }
